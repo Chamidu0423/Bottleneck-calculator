@@ -43,6 +43,12 @@ const hardwareData = {
     { id: "r7-5800x3d", name: "AMD Ryzen 7 5800X3D", score: 98, cores: 8, threads: 16, price: 400 },
     { id: "r9-5900x", name: "AMD Ryzen 9 5900X", score: 96, cores: 12, threads: 24, price: 450 },
     { id: "r9-5950x", name: "AMD Ryzen 9 5950X", score: 100, cores: 16, threads: 32, price: 650 },
+  { id: "i9-10900k", name: "Intel Core i9-10900K", score: 72, cores: 10, threads: 20, price: 400 },
+  { id: "i7-10700k", name: "Intel Core i7-10700K", score: 76, cores: 8, threads: 16, price: 350 },
+  { id: "i5-10600k", name: "Intel Core i5-10600K", score: 68, cores: 6, threads: 12, price: 260 },
+  { id: "r5-3600", name: "AMD Ryzen 5 3600", score: 70, cores: 6, threads: 12, price: 200 },
+  { id: "r7-3700x", name: "AMD Ryzen 7 3700X", score: 77, cores: 8, threads: 16, price: 300 },
+  { id: "r9-3900x", name: "AMD Ryzen 9 3900X", score: 88, cores: 12, threads: 24, price: 450 },
   ],
   gpus: [
     { id: "rtx-4060", name: "NVIDIA RTX 4060", score: 75, vram: 8, price: 300 },
