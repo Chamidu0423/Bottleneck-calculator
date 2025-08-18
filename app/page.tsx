@@ -7,7 +7,6 @@ import { Badge } from "@/components/ui/badge"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Cpu, Monitor, Computer, AlertTriangle, CheckCircle, XCircle } from "lucide-react"
 
-// static Hardware-Data
 const hardwareData = {
   cpus: [
     { id: "i3-13100f", name: "Intel Core i3-13100F", score: 65, cores: 4, threads: 8, price: 110 },
