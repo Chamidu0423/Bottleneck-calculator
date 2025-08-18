@@ -191,38 +191,75 @@ const AnimatedCounter = ({ value, duration = 1000 }: { value: number; duration?:
 }
 
 const SpeedMeter = ({ value, size = 200 }: { value: number; size?: number }) => {
-  const radius = size / 2 - 20
-  const startAngle = -Math.PI * 0.8
-  const endAngle = Math.PI * 0.8
-  const totalAngle = endAngle - startAngle
+  const [animatedValue, setAnimatedValue] = useState(0)
+  const radius = size / 2 - 30
+  const strokeWidth = 12
+  
+  React.useEffect(() => {
+    const prefersReduce = typeof window !== "undefined" && window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    
+    if (prefersReduce) {
+      setAnimatedValue(value)
+      return
+    }
 
-  const getPathData = (angle: number) => {
-    const x = size / 2 + radius * Math.cos(angle)
-    const y = size / 2 + 20 + radius * Math.sin(angle)
-    return { x, y }
+    let startTime: number
+    let startValue = animatedValue
+    const duration = 900
+
+    const animate = (currentTime: number) => {
+      if (!startTime) startTime = currentTime
+      const elapsed = currentTime - startTime
+      const progress = Math.min(elapsed / duration, 1)
+      
+      const easeOut = 1 - Math.pow(1 - progress, 3)
+      const currentValue = startValue + (value - startValue) * easeOut
+      
+      setAnimatedValue(currentValue)
+      
+      if (progress < 1) {
+        requestAnimationFrame(animate)
+      }
+    }
+    
+    requestAnimationFrame(animate)
+  }, [value])
+
+  // Arc parameters for semicircle from left to right
+  const startAngle = Math.PI // 180 degrees (left side)
+  const endAngle = 0 // 0 degrees (right side)
+  const totalAngle = Math.PI // 180 degrees total
+
+  const polarToCartesian = (centerX: number, centerY: number, radius: number, angleInRadians: number) => {
+    return {
+      x: centerX + (radius * Math.cos(angleInRadians)),
+      y: centerY + (radius * Math.sin(angleInRadians))
+    }
   }
 
-  const startPoint = getPathData(startAngle)
-  const endPoint = getPathData(endAngle)
+  const createArcPath = (centerX: number, centerY: number, radius: number, startAngle: number, endAngle: number) => {
+    const start = polarToCartesian(centerX, centerY, radius, startAngle)
+    const end = polarToCartesian(centerX, centerY, radius, endAngle)
+    const largeArcFlag = endAngle - startAngle <= Math.PI ? "0" : "1"
+    return [
+      "M", start.x, start.y, 
+      "A", radius, radius, 0, largeArcFlag, 1, end.x, end.y
+    ].join(" ")
+  }
 
-  const progressPathRef = React.useRef<SVGPathElement | null>(null)
-
-  React.useEffect(() => {
-    const path = progressPathRef.current
-    if (!path) return
-    const len = path.getTotalLength()
-    path.style.strokeDasharray = `${len}`
-    const offset = len * (1 - Math.max(0, Math.min(100, value)) / 100)
-    const prefersReduce = typeof window !== "undefined" && window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    path.style.transition = prefersReduce ? "none" : "stroke-dashoffset 1s ease-out"
-    setTimeout(() => {
-      path.style.strokeDashoffset = String(offset)
-    }, 0)
-  }, [value])
+  const centerX = size / 2
+  const centerY = size / 2 + 20
+  
+  // Background arc path
+  const backgroundPath = createArcPath(centerX, centerY, radius, startAngle, endAngle)
+  
+  // Progress arc path
+  const progressEndAngle = startAngle - (animatedValue / 100) * totalAngle
+  const progressPath = animatedValue > 0 ? createArcPath(centerX, centerY, radius, startAngle, progressEndAngle) : ""
 
   return (
     <div className="relative flex items-center justify-center" style={{ width: size, height: size / 2 + 60 }}>
-      <svg width={size} height={size / 2 + 60} className="transform">
+      <svg width={size} height={size / 2 + 60}>
         <defs>
           <linearGradient id="speedMeterGradient" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor="#ef4444" />
@@ -230,29 +267,28 @@ const SpeedMeter = ({ value, size = 200 }: { value: number; size?: number }) => 
             <stop offset="66%" stopColor="#f59e0b" />
             <stop offset="100%" stopColor="#10b981" />
           </linearGradient>
-          <linearGradient id="backgroundGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="hsl(var(--muted))" stopOpacity="0.3" />
-            <stop offset="100%" stopColor="hsl(var(--muted))" stopOpacity="0.6" />
-          </linearGradient>
         </defs>
         
+        {/* Background arc */}
         <path
-          d={`M ${startPoint.x} ${startPoint.y} A ${radius} ${radius} 0 1 1 ${endPoint.x} ${endPoint.y}`}
+          d={backgroundPath}
           fill="none"
-          stroke="url(#backgroundGradient)"
-          strokeWidth="12"
+          stroke="hsl(var(--muted))"
+          strokeWidth={strokeWidth}
           strokeLinecap="round"
+          opacity="0.3"
         />
         
-        <path
-          ref={progressPathRef}
-          d={`M ${startPoint.x} ${startPoint.y} A ${radius} ${radius} 0 1 1 ${endPoint.x} ${endPoint.y}`}
-          fill="none"
-          stroke="url(#speedMeterGradient)"
-          strokeWidth="12"
-          strokeLinecap="round"
-          style={{ strokeDashoffset: "100%" }}
-        />
+        {/* Progress arc */}
+        {animatedValue > 0 && (
+          <path
+            d={progressPath}
+            fill="none"
+            stroke="url(#speedMeterGradient)"
+            strokeWidth={strokeWidth}
+            strokeLinecap="round"
+          />
+        )}
       </svg>
       
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-center">
@@ -262,32 +298,37 @@ const SpeedMeter = ({ value, size = 200 }: { value: number; size?: number }) => 
         </div>
       </div>
       
+      {/* Scale markers */}
       {[0, 25, 50, 75, 100].map((mark) => {
-        const angle = startAngle + (mark / 100) * totalAngle
-        const x1 = size / 2 + (radius - 15) * Math.cos(angle)
-        const y1 = size / 2 + 20 + (radius - 15) * Math.sin(angle)
-        const x2 = size / 2 + (radius + 8) * Math.cos(angle)
-        const y2 = size / 2 + 20 + (radius + 8) * Math.sin(angle)
+        const angle = startAngle - (mark / 100) * totalAngle
+        const markerRadius = radius + 15
+        const textRadius = radius + 30
+        
+        const markerInner = polarToCartesian(centerX, centerY, radius - 10, angle)
+        const markerOuter = polarToCartesian(centerX, centerY, markerRadius, angle)
+        const textPos = polarToCartesian(centerX, centerY, textRadius, angle)
 
         return (
-          <svg key={mark} width={size} height={size / 2 + 60} className="absolute top-0 left-0">
-            <defs>
-              <linearGradient id={`markerGradient-${mark}`} x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="hsl(var(--muted-foreground))" stopOpacity="0.8" />
-                <stop offset="100%" stopColor="hsl(var(--muted-foreground))" stopOpacity="0.4" />
-              </linearGradient>
-            </defs>
-            <line x1={x1} y1={y1} x2={x2} y2={y2} stroke={`url(#markerGradient-${mark})`} strokeWidth="3" />
+          <g key={mark}>
+            <line 
+              x1={markerInner.x} 
+              y1={markerInner.y} 
+              x2={markerOuter.x} 
+              y2={markerOuter.y} 
+              stroke="hsl(var(--muted-foreground))" 
+              strokeWidth="2" 
+              opacity="0.6" 
+            />
             <text
-              x={size / 2 + (radius + 20) * Math.cos(angle)}
-              y={size / 2 + 20 + (radius + 20) * Math.sin(angle)}
+              x={textPos.x}
+              y={textPos.y}
               textAnchor="middle"
               dominantBaseline="middle"
               className="text-sm fill-muted-foreground font-medium"
             >
               {mark}
             </text>
-          </svg>
+          </g>
         )
       })}
     </div>
