@@ -143,6 +143,13 @@ const hardwareData = {
     { id: "ddr5-64gb-5600", name: "64GB DDR5-5600", score: 108, capacity: 64, speed: 5600, price: 400 },
     { id: "ddr5-64gb-6000", name: "64GB DDR5-6400", score: 110, capacity: 64, speed: 6000, price: 440 },
     { id: "ddr5-128gb-4800", name: "128GB DDR5-4800", score: 115, capacity: 128, speed: 4800, price: 720 },
+  { id: "corsair-vengeance-lpx-16gb-3200", name: "Corsair Vengeance LPX 16GB (2x8) DDR4-3200", score: 70, capacity: 16, speed: 3200, price: 60 },
+  { id: "gskill-tridentz-32gb-3600", name: "G.Skill Trident Z 32GB (2x16) DDR4-3600", score: 82, capacity: 32, speed: 3600, price: 140 },
+  { id: "corsair-dominator-ddr5-32gb-5600", name: "Corsair Dominator Platinum RGB 32GB (2x16) DDR5-5600", score: 95, capacity: 32, speed: 5600, price: 220 },
+  { id: "gskill-tridentz5-32gb-7200", name: "G.Skill Trident Z5 32GB (2x16) DDR5-7200", score: 105, capacity: 32, speed: 7200, price: 300 },
+  { id: "kingston-fury-beast-16gb-5200", name: "Kingston FURY Beast 16GB (2x8) DDR5-5200", score: 88, capacity: 16, speed: 5200, price: 90 },
+  { id: "samsung-ddr5-64gb-4800", name: "Samsung DDR5 64GB (2x32) 4800", score: 100, capacity: 64, speed: 4800, price: 320 },
+  { id: "ecc-ddr4-32gb-2666", name: "32GB ECC DDR4-2666", score: 68, capacity: 32, speed: 2666, price: 120 },
   ],
 }
 
