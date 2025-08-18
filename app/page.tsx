@@ -9,7 +9,6 @@ import { Cpu, Monitor, Computer, AlertTriangle, CheckCircle, XCircle } from "luc
 
 const hardwareData = {
   cpus: [
-    // Intel 13th Gen
     { id: "i3-13100f", name: "Intel Core i3-13100F", score: 65, cores: 4, threads: 8, price: 110 },
     { id: "i5-13400f", name: "Intel Core i5-13400F", score: 88, cores: 10, threads: 16, price: 200 },
     { id: "i5-13500", name: "Intel Core i5-13500", score: 90, cores: 14, threads: 20, price: 250 },
@@ -19,14 +18,14 @@ const hardwareData = {
     { id: "i9-13900f", name: "Intel Core i9-13900F", score: 100, cores: 24, threads: 32, price: 580 },
     { id: "i9-13900k", name: "Intel Core i9-13900K", score: 102, cores: 24, threads: 32, price: 650 },
 
-    // Intel 12th Gen
+    
     { id: "i3-12100f", name: "Intel Core i3-12100F", score: 62, cores: 4, threads: 8, price: 90 },
     { id: "i5-12400f", name: "Intel Core i5-12400F", score: 85, cores: 6, threads: 12, price: 150 },
     { id: "i5-12600k", name: "Intel Core i5-12600K", score: 89, cores: 10, threads: 16, price: 280 },
     { id: "i7-12700k", name: "Intel Core i7-12700K", score: 95, cores: 12, threads: 20, price: 350 },
     { id: "i9-12900k", name: "Intel Core i9-12900K", score: 100, cores: 16, threads: 24, price: 550 },
 
-    // AMD Ryzen 7000 Series
+    
     { id: "r5-7600", name: "AMD Ryzen 5 7600", score: 86, cores: 6, threads: 12, price: 230 },
     { id: "r5-7600x", name: "AMD Ryzen 5 7600X", score: 88, cores: 6, threads: 12, price: 300 },
     { id: "r7-7700", name: "AMD Ryzen 7 7700", score: 94, cores: 8, threads: 16, price: 330 },
@@ -35,7 +34,7 @@ const hardwareData = {
     { id: "r9-7900x", name: "AMD Ryzen 9 7900X", score: 98, cores: 12, threads: 24, price: 550 },
     { id: "r9-7950x", name: "AMD Ryzen 9 7950X", score: 103, cores: 16, threads: 32, price: 700 },
 
-    // AMD Ryzen 5000 Series
+    
     { id: "r5-5500", name: "AMD Ryzen 5 5500", score: 75, cores: 6, threads: 12, price: 160 },
     { id: "r5-5600", name: "AMD Ryzen 5 5600", score: 80, cores: 6, threads: 12, price: 180 },
     { id: "r5-5600x", name: "AMD Ryzen 5 5600X", score: 82, cores: 6, threads: 12, price: 200 },
@@ -46,7 +45,6 @@ const hardwareData = {
     { id: "r9-5950x", name: "AMD Ryzen 9 5950X", score: 100, cores: 16, threads: 32, price: 650 },
   ],
   gpus: [
-    // NVIDIA RTX 40 Series
     { id: "rtx-4060", name: "NVIDIA RTX 4060", score: 75, vram: 8, price: 300 },
     { id: "rtx-4060-ti", name: "NVIDIA RTX 4060 Ti", score: 80, vram: 16, price: 400 },
     { id: "rtx-4070", name: "NVIDIA RTX 4070", score: 90, vram: 12, price: 600 },
@@ -57,7 +55,7 @@ const hardwareData = {
     { id: "rtx-4080-super", name: "NVIDIA RTX 4080 Super", score: 100, vram: 16, price: 1000 },
     { id: "rtx-4090", name: "NVIDIA RTX 4090", score: 110, vram: 24, price: 1600 },
 
-    // NVIDIA RTX 30 Series
+    
     { id: "rtx-3050", name: "NVIDIA RTX 3050", score: 60, vram: 8, price: 250 },
     { id: "rtx-3060", name: "NVIDIA RTX 3060", score: 70, vram: 12, price: 300 },
     { id: "rtx-3060-ti", name: "NVIDIA RTX 3060 Ti", score: 78, vram: 8, price: 400 },
@@ -68,7 +66,7 @@ const hardwareData = {
     { id: "rtx-3090", name: "NVIDIA RTX 3090", score: 100, vram: 24, price: 1500 },
     { id: "rtx-3090-ti", name: "NVIDIA RTX 3090 Ti", score: 102, vram: 24, price: 2000 },
 
-    // AMD RX 7000 Series
+    
     { id: "rx-7600", name: "AMD RX 7600", score: 72, vram: 8, price: 270 },
     { id: "rx-7600-xt", name: "AMD RX 7600 XT", score: 76, vram: 16, price: 330 },
     { id: "rx-7700-xt", name: "AMD RX 7700 XT", score: 82, vram: 12, price: 450 },
@@ -77,7 +75,7 @@ const hardwareData = {
     { id: "rx-7900-xt", name: "AMD RX 7900 XT", score: 95, vram: 20, price: 900 },
     { id: "rx-7900-xtx", name: "AMD RX 7900 XTX", score: 100, vram: 24, price: 1000 },
 
-    // AMD RX 6000 Series
+    
     { id: "rx-6500-xt", name: "AMD RX 6500 XT", score: 55, vram: 4, price: 200 },
     { id: "rx-6600", name: "AMD RX 6600", score: 68, vram: 8, price: 230 },
     { id: "rx-6600-xt", name: "AMD RX 6600 XT", score: 72, vram: 8, price: 280 },
@@ -89,13 +87,12 @@ const hardwareData = {
     { id: "rx-6900-xt", name: "AMD RX 6900 XT", score: 92, vram: 16, price: 1000 },
     { id: "rx-6950-xt", name: "AMD RX 6950 XT", score: 94, vram: 16, price: 1100 },
 
-    // Intel Arc
+    
     { id: "arc-a380", name: "Intel Arc A380", score: 50, vram: 6, price: 140 },
     { id: "arc-a750", name: "Intel Arc A750", score: 65, vram: 8, price: 250 },
     { id: "arc-a770", name: "Intel Arc A770", score: 70, vram: 16, price: 330 },
   ],
   ram: [
-    // DDR4 Memory
     { id: "ddr4-8gb-2400", name: "8GB DDR4-2400", score: 50, capacity: 8, speed: 2400, price: 30 },
     { id: "ddr4-8gb-2666", name: "8GB DDR4-2666", score: 55, capacity: 8, speed: 2666, price: 35 },
     { id: "ddr4-8gb-3200", name: "8GB DDR4-3200", score: 60, capacity: 8, speed: 3200, price: 40 },
@@ -114,7 +111,7 @@ const hardwareData = {
     { id: "ddr4-64gb-3200", name: "64GB DDR4-3200", score: 95, capacity: 64, speed: 3200, price: 250 },
     { id: "ddr4-64gb-3600", name: "64GB DDR4-3600", score: 97, capacity: 64, speed: 3600, price: 280 },
 
-    // DDR5 Memory
+    
     { id: "ddr5-8gb-4800", name: "8GB DDR5-4800", score: 70, capacity: 8, speed: 4800, price: 50 },
     { id: "ddr5-8gb-5200", name: "8GB DDR5-5200", score: 72, capacity: 8, speed: 5200, price: 55 },
     { id: "ddr5-8gb-5600", name: "8GB DDR5-5600", score: 75, capacity: 8, speed: 5600, price: 60 },
@@ -176,8 +173,8 @@ const AnimatedCounter = ({ value, duration = 1000 }: { value: number; duration?:
 
 const SpeedMeter = ({ value, size = 200 }: { value: number; size?: number }) => {
   const radius = size / 2 - 20
-  const startAngle = -Math.PI * 0.8 // Start at 80% of PI for more curve
-  const endAngle = Math.PI * 0.8 // End at 80% of PI for more curve
+  const startAngle = -Math.PI * 0.8
+  const endAngle = Math.PI * 0.8
   const totalAngle = endAngle - startAngle
 
   const getPathData = (angle: number) => {
@@ -194,14 +191,11 @@ const SpeedMeter = ({ value, size = 200 }: { value: number; size?: number }) => 
   React.useEffect(() => {
     const path = progressPathRef.current
     if (!path) return
-    // prepare stroke dash animation
     const len = path.getTotalLength()
     path.style.strokeDasharray = `${len}`
     const offset = len * (1 - Math.max(0, Math.min(100, value)) / 100)
     const prefersReduce = typeof window !== "undefined" && window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches
     path.style.transition = prefersReduce ? "none" : "stroke-dashoffset 1s ease-out"
-    // apply offset (this will animate if transition is set)
-    // setTimeout to ensure the initial dasharray is set before offset for some browsers
     setTimeout(() => {
       path.style.strokeDashoffset = String(offset)
     }, 0)
@@ -222,7 +216,7 @@ const SpeedMeter = ({ value, size = 200 }: { value: number; size?: number }) => 
             <stop offset="100%" stopColor="hsl(var(--muted))" stopOpacity="0.6" />
           </linearGradient>
         </defs>
-        {/* Background arc with more curve */}
+        
         <path
           d={`M ${startPoint.x} ${startPoint.y} A ${radius} ${radius} 0 1 1 ${endPoint.x} ${endPoint.y}`}
           fill="none"
@@ -230,7 +224,7 @@ const SpeedMeter = ({ value, size = 200 }: { value: number; size?: number }) => 
           strokeWidth="12"
           strokeLinecap="round"
         />
-        {/* Progress arc: render full arc and animate strokeDashoffset */}
+        
         <path
           ref={progressPathRef}
           d={`M ${startPoint.x} ${startPoint.y} A ${radius} ${radius} 0 1 1 ${endPoint.x} ${endPoint.y}`}
@@ -241,14 +235,14 @@ const SpeedMeter = ({ value, size = 200 }: { value: number; size?: number }) => 
           style={{ strokeDashoffset: "100%" }}
         />
       </svg>
-      {/* Center value */}
+      
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-center">
         <AnimatedCounter value={value} duration={900} />
         <div className="text-sm text-muted-foreground mt-1">
           {value >= 85 ? "Excellent" : value >= 70 ? "Good" : value >= 50 ? "Fair" : "Poor"}
         </div>
       </div>
-      {/* Scale markers with more curve */}
+      
       {[0, 25, 50, 75, 100].map((mark) => {
         const angle = startAngle + (mark / 100) * totalAngle
         const x1 = size / 2 + (radius - 15) * Math.cos(angle)
@@ -335,9 +329,6 @@ class ErrorBoundary extends React.Component<{ children: React.ReactNode }, { err
   }
 
   componentDidCatch(error: Error, info: unknown) {
-    // Log full error to console so developer can see stack in browser console
-    // This helps diagnose blank pages caused by client runtime errors
-    // eslint-disable-next-line no-console
     console.error("ErrorBoundary caught an error:", error, info)
   }
 
@@ -367,7 +358,6 @@ export default function BottleneckCalculator() {
   })
   const [clientError, setClientError] = useState<string | null>(null)
 
-  // Register global client-side error handlers to surface runtime errors in-page
   React.useEffect(() => {
     const onError = (event: ErrorEvent) => {
       setClientError(event.error ? String(event.error) : event.message)
@@ -392,18 +382,17 @@ export default function BottleneckCalculator() {
 
     setIsCalculating(true)
 
-    // Simulate API call delay
-    setTimeout(() => {
+  setTimeout(() => {
       const cpu = hardwareData.cpus.find((c) => c.id === selectedComponents.cpu)!
       const gpu = hardwareData.gpus.find((g) => g.id === selectedComponents.gpu)!
       const ram = hardwareData.ram.find((r) => r.id === selectedComponents.ram)!
 
-      // Calculate bottleneck percentages based on component balance
+      
       const cpuGpuDiff = Math.abs(cpu.score - gpu.score)
       const cpuBottleneck = cpuGpuDiff > 15 && cpu.score < gpu.score ? cpuGpuDiff : 0
       const gpuBottleneck = cpuGpuDiff > 15 && gpu.score < cpu.score ? cpuGpuDiff : 0
 
-      // RAM bottleneck based on capacity and speed relative to other components
+      
       const avgComponentScore = (cpu.score + gpu.score) / 2
       const ramBottleneck = ram.score < avgComponentScore - 10 ? avgComponentScore - ram.score : 0
 
@@ -448,7 +437,7 @@ export default function BottleneckCalculator() {
           <div className="text-sm mt-1 break-words">{clientError}</div>
         </div>
       )}
-      {/* Header */}
+      
       <header className="border-b bg-card">
         <div className="container mx-auto px-4 py-6">
           <div className="flex items-center gap-3">
@@ -465,7 +454,7 @@ export default function BottleneckCalculator() {
 
       <main className="container mx-auto px-4 py-8">
         <div className="grid gap-8 lg:grid-cols-2">
-          {/* Hardware Selection */}
+          
           <div className="space-y-6">
             <Card>
               <CardHeader>
@@ -476,7 +465,7 @@ export default function BottleneckCalculator() {
                 <CardDescription>Choose your CPU, GPU, and RAM to analyze potential bottlenecks</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                {/* CPU Selection */}
+                
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Processor (CPU)</label>
                   <Select
@@ -501,7 +490,7 @@ export default function BottleneckCalculator() {
                   </Select>
                 </div>
 
-                {/* GPU Selection */}
+                
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Graphics Card (GPU)</label>
                   <Select
@@ -526,7 +515,7 @@ export default function BottleneckCalculator() {
                   </Select>
                 </div>
 
-                {/* RAM Selection */}
+                
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Memory (RAM)</label>
                   <Select
@@ -563,11 +552,11 @@ export default function BottleneckCalculator() {
             </Card>
           </div>
 
-          {/* Results */}
+          
           <div className="space-y-6">
             {result && (
               <>
-                {/* Overall Score */}
+                
                 <Card>
                   <CardHeader>
                     <CardTitle className="font-[family-name:var(--font-montserrat)]">
@@ -581,7 +570,7 @@ export default function BottleneckCalculator() {
                   </CardContent>
                 </Card>
 
-                {/* Bottleneck Analysis */}
+                
                 <Card>
                   <CardHeader>
                     <CardTitle className="font-[family-name:var(--font-montserrat)]">Bottleneck Analysis</CardTitle>
@@ -621,7 +610,7 @@ export default function BottleneckCalculator() {
                   </CardContent>
                 </Card>
 
-                {/* Recommendations */}
+                
                 {result.recommendations.length > 0 && (
                   <Card>
                     <CardHeader>
