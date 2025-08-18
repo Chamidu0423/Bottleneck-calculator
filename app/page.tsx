@@ -17,15 +17,11 @@ const hardwareData = {
     { id: "i7-13700k", name: "Intel Core i7-13700K", score: 98, cores: 16, threads: 24, price: 420 },
     { id: "i9-13900f", name: "Intel Core i9-13900F", score: 100, cores: 24, threads: 32, price: 580 },
     { id: "i9-13900k", name: "Intel Core i9-13900K", score: 102, cores: 24, threads: 32, price: 650 },
-
-    
     { id: "i3-12100f", name: "Intel Core i3-12100F", score: 62, cores: 4, threads: 8, price: 90 },
     { id: "i5-12400f", name: "Intel Core i5-12400F", score: 85, cores: 6, threads: 12, price: 150 },
     { id: "i5-12600k", name: "Intel Core i5-12600K", score: 89, cores: 10, threads: 16, price: 280 },
     { id: "i7-12700k", name: "Intel Core i7-12700K", score: 95, cores: 12, threads: 20, price: 350 },
     { id: "i9-12900k", name: "Intel Core i9-12900K", score: 100, cores: 16, threads: 24, price: 550 },
-
-    
     { id: "r5-7600", name: "AMD Ryzen 5 7600", score: 86, cores: 6, threads: 12, price: 230 },
     { id: "r5-7600x", name: "AMD Ryzen 5 7600X", score: 88, cores: 6, threads: 12, price: 300 },
     { id: "r7-7700", name: "AMD Ryzen 7 7700", score: 94, cores: 8, threads: 16, price: 330 },
@@ -33,8 +29,6 @@ const hardwareData = {
     { id: "r7-7800x3d", name: "AMD Ryzen 7 7800X3D", score: 105, cores: 8, threads: 16, price: 450 },
     { id: "r9-7900x", name: "AMD Ryzen 9 7900X", score: 98, cores: 12, threads: 24, price: 550 },
     { id: "r9-7950x", name: "AMD Ryzen 9 7950X", score: 103, cores: 16, threads: 32, price: 700 },
-
-    
     { id: "r5-5500", name: "AMD Ryzen 5 5500", score: 75, cores: 6, threads: 12, price: 160 },
     { id: "r5-5600", name: "AMD Ryzen 5 5600", score: 80, cores: 6, threads: 12, price: 180 },
     { id: "r5-5600x", name: "AMD Ryzen 5 5600X", score: 82, cores: 6, threads: 12, price: 200 },
@@ -60,8 +54,6 @@ const hardwareData = {
     { id: "rtx-4080", name: "NVIDIA RTX 4080", score: 98, vram: 16, price: 1200 },
     { id: "rtx-4080-super", name: "NVIDIA RTX 4080 Super", score: 100, vram: 16, price: 1000 },
     { id: "rtx-4090", name: "NVIDIA RTX 4090", score: 110, vram: 24, price: 1600 },
-
-    
     { id: "rtx-3050", name: "NVIDIA RTX 3050", score: 60, vram: 8, price: 250 },
     { id: "rtx-3060", name: "NVIDIA RTX 3060", score: 70, vram: 12, price: 300 },
     { id: "rtx-3060-ti", name: "NVIDIA RTX 3060 Ti", score: 78, vram: 8, price: 400 },
@@ -71,8 +63,6 @@ const hardwareData = {
     { id: "rtx-3080-ti", name: "NVIDIA RTX 3080 Ti", score: 95, vram: 12, price: 1200 },
     { id: "rtx-3090", name: "NVIDIA RTX 3090", score: 100, vram: 24, price: 1500 },
     { id: "rtx-3090-ti", name: "NVIDIA RTX 3090 Ti", score: 102, vram: 24, price: 2000 },
-
-    
     { id: "rx-7600", name: "AMD RX 7600", score: 72, vram: 8, price: 270 },
     { id: "rx-7600-xt", name: "AMD RX 7600 XT", score: 76, vram: 16, price: 330 },
     { id: "rx-7700-xt", name: "AMD RX 7700 XT", score: 82, vram: 12, price: 450 },
@@ -80,8 +70,6 @@ const hardwareData = {
     { id: "rx-7900-gre", name: "AMD RX 7900 GRE", score: 92, vram: 16, price: 550 },
     { id: "rx-7900-xt", name: "AMD RX 7900 XT", score: 95, vram: 20, price: 900 },
     { id: "rx-7900-xtx", name: "AMD RX 7900 XTX", score: 100, vram: 24, price: 1000 },
-
-    
     { id: "rx-6500-xt", name: "AMD RX 6500 XT", score: 55, vram: 4, price: 200 },
     { id: "rx-6600", name: "AMD RX 6600", score: 68, vram: 8, price: 230 },
     { id: "rx-6600-xt", name: "AMD RX 6600 XT", score: 72, vram: 8, price: 280 },
@@ -122,8 +110,6 @@ const hardwareData = {
     { id: "ddr4-32gb-4000", name: "32GB DDR4-4000", score: 90, capacity: 32, speed: 4000, price: 180 },
     { id: "ddr4-64gb-3200", name: "64GB DDR4-3200", score: 95, capacity: 64, speed: 3200, price: 250 },
     { id: "ddr4-64gb-3600", name: "64GB DDR4-3600", score: 97, capacity: 64, speed: 3600, price: 280 },
-
-    
     { id: "ddr5-8gb-4800", name: "8GB DDR5-4800", score: 70, capacity: 8, speed: 4800, price: 50 },
     { id: "ddr5-8gb-5200", name: "8GB DDR5-5200", score: 72, capacity: 8, speed: 5200, price: 55 },
     { id: "ddr5-8gb-5600", name: "8GB DDR5-5600", score: 75, capacity: 8, speed: 5600, price: 60 },
@@ -190,147 +176,142 @@ const AnimatedCounter = ({ value, duration = 1000 }: { value: number; duration?:
   return <div className="text-4xl font-thin font-[family-name:var(--font-montserrat)] text-primary">{display}%</div>
 }
 
-const SpeedMeter = ({ value, size = 200 }: { value: number; size?: number }) => {
-  const [animatedValue, setAnimatedValue] = useState(0)
-  const radius = size / 2 - 30
-  const strokeWidth = 12
+const PerformanceMeter = ({ value, size = 280 }: { value: number; size?: number }) => {
+  const [displayValue, setDisplayValue] = useState(0)
   
   React.useEffect(() => {
-    const prefersReduce = typeof window !== "undefined" && window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     
-    if (prefersReduce) {
-      setAnimatedValue(value)
+    if (prefersReducedMotion) {
+      setDisplayValue(value)
       return
     }
 
-    let startTime: number
-    let startValue = animatedValue
-    const duration = 900
+    let animationId: number
+    const startTime = performance.now()
+    const startValue = displayValue
+    const duration = 1000
 
     const animate = (currentTime: number) => {
-      if (!startTime) startTime = currentTime
       const elapsed = currentTime - startTime
       const progress = Math.min(elapsed / duration, 1)
       
-      const easeOut = 1 - Math.pow(1 - progress, 3)
-      const currentValue = startValue + (value - startValue) * easeOut
+      const eased = 1 - Math.pow(1 - progress, 3)
+      const current = startValue + (value - startValue) * eased
       
-      setAnimatedValue(currentValue)
+      setDisplayValue(current)
       
       if (progress < 1) {
-        requestAnimationFrame(animate)
+        animationId = requestAnimationFrame(animate)
       }
     }
     
-    requestAnimationFrame(animate)
+    animationId = requestAnimationFrame(animate)
+    return () => cancelAnimationFrame(animationId)
   }, [value])
 
-  // Arc parameters for semicircle from left to right
-  const startAngle = Math.PI // 180 degrees (left side)
-  const endAngle = 0 // 0 degrees (right side)
-  const totalAngle = Math.PI // 180 degrees total
-
-  const polarToCartesian = (centerX: number, centerY: number, radius: number, angleInRadians: number) => {
-    return {
-      x: centerX + (radius * Math.cos(angleInRadians)),
-      y: centerY + (radius * Math.sin(angleInRadians))
-    }
+  const radius = 90
+  const circumference = 2 * Math.PI * radius
+  const strokeDasharray = circumference
+  const strokeDashoffset = circumference - (displayValue / 100) * (circumference * 0.75)
+  
+  const getStatusColor = (val: number) => {
+    if (val >= 85) return "text-green-600"
+    if (val >= 70) return "text-blue-600" 
+    if (val >= 50) return "text-yellow-600"
+    return "text-red-600"
   }
 
-  const createArcPath = (centerX: number, centerY: number, radius: number, startAngle: number, endAngle: number) => {
-    const start = polarToCartesian(centerX, centerY, radius, startAngle)
-    const end = polarToCartesian(centerX, centerY, radius, endAngle)
-    const largeArcFlag = endAngle - startAngle <= Math.PI ? "0" : "1"
-    return [
-      "M", start.x, start.y, 
-      "A", radius, radius, 0, largeArcFlag, 1, end.x, end.y
-    ].join(" ")
+  const getStatusText = (val: number) => {
+    if (val >= 85) return "Excellent"
+    if (val >= 70) return "Good"
+    if (val >= 50) return "Fair"
+    return "Poor"
   }
-
-  const centerX = size / 2
-  const centerY = size / 2 + 20
-  
-  // Background arc path
-  const backgroundPath = createArcPath(centerX, centerY, radius, startAngle, endAngle)
-  
-  // Progress arc path
-  const progressEndAngle = startAngle - (animatedValue / 100) * totalAngle
-  const progressPath = animatedValue > 0 ? createArcPath(centerX, centerY, radius, startAngle, progressEndAngle) : ""
 
   return (
-    <div className="relative flex items-center justify-center" style={{ width: size, height: size / 2 + 60 }}>
-      <svg width={size} height={size / 2 + 60}>
-        <defs>
-          <linearGradient id="speedMeterGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#ef4444" />
-            <stop offset="33%" stopColor="#f97316" />
-            <stop offset="66%" stopColor="#f59e0b" />
-            <stop offset="100%" stopColor="#10b981" />
-          </linearGradient>
-        </defs>
-        
-        {/* Background arc */}
-        <path
-          d={backgroundPath}
-          fill="none"
-          stroke="hsl(var(--muted))"
-          strokeWidth={strokeWidth}
-          strokeLinecap="round"
-          opacity="0.3"
-        />
-        
-        {/* Progress arc */}
-        {animatedValue > 0 && (
-          <path
-            d={progressPath}
+    <div className="relative flex flex-col items-center justify-center" style={{ width: size, height: size }}>
+      <div className="relative">
+        <svg
+          width={size}
+          height={size}
+          className="transform -rotate-90"
+        >
+          <defs>
+            <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#ef4444" />
+              <stop offset="25%" stopColor="#f97316" />
+              <stop offset="50%" stopColor="#eab308" />
+              <stop offset="75%" stopColor="#22c55e" />
+              <stop offset="100%" stopColor="#16a34a" />
+            </linearGradient>
+          </defs>
+          
+          <circle
+            cx={size / 2}
+            cy={size / 2}
+            r={radius}
             fill="none"
-            stroke="url(#speedMeterGradient)"
-            strokeWidth={strokeWidth}
+            stroke="hsl(var(--muted))"
+            strokeWidth="8"
+            opacity="0.2"
+            strokeDasharray={strokeDasharray}
+            strokeDashoffset={circumference * 0.25}
             strokeLinecap="round"
           />
-        )}
-      </svg>
-      
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-center">
-        <AnimatedCounter value={value} duration={900} />
-        <div className="text-sm text-muted-foreground mt-1">
-          {value >= 85 ? "Excellent" : value >= 70 ? "Good" : value >= 50 ? "Fair" : "Poor"}
+          
+          <circle
+            cx={size / 2}
+            cy={size / 2}
+            r={radius}
+            fill="none"
+            stroke="url(#progressGradient)"
+            strokeWidth="8"
+            strokeDasharray={strokeDasharray}
+            strokeDashoffset={strokeDashoffset}
+            strokeLinecap="round"
+            style={{
+              transition: window.matchMedia('(prefers-reduced-motion: reduce)').matches 
+                ? 'none' 
+                : 'stroke-dashoffset 1s cubic-bezier(0.4, 0, 0.2, 1)'
+            }}
+          />
+        </svg>
+        
+        <div className="absolute inset-0 flex flex-col items-center justify-center">
+          <AnimatedCounter value={value} duration={1000} />
+          <div className={`text-sm font-medium mt-1 ${getStatusColor(value)}`}>
+            {getStatusText(value)}
+          </div>
         </div>
       </div>
       
-      {/* Scale markers */}
-      {[0, 25, 50, 75, 100].map((mark) => {
-        const angle = startAngle - (mark / 100) * totalAngle
-        const markerRadius = radius + 15
-        const textRadius = radius + 30
-        
-        const markerInner = polarToCartesian(centerX, centerY, radius - 10, angle)
-        const markerOuter = polarToCartesian(centerX, centerY, markerRadius, angle)
-        const textPos = polarToCartesian(centerX, centerY, textRadius, angle)
-
-        return (
-          <g key={mark}>
-            <line 
-              x1={markerInner.x} 
-              y1={markerInner.y} 
-              x2={markerOuter.x} 
-              y2={markerOuter.y} 
-              stroke="hsl(var(--muted-foreground))" 
-              strokeWidth="2" 
-              opacity="0.6" 
-            />
-            <text
-              x={textPos.x}
-              y={textPos.y}
-              textAnchor="middle"
-              dominantBaseline="middle"
-              className="text-sm fill-muted-foreground font-medium"
+      <div className="absolute inset-0 pointer-events-none">
+        {[0, 25, 50, 75, 100].map((mark) => {
+          const angle = -90 + (mark / 100) * 270
+          const radian = (angle * Math.PI) / 180
+          const x = size / 2 + (radius + 20) * Math.cos(radian)
+          const y = size / 2 + (radius + 20) * Math.sin(radian)
+          
+          return (
+            <div
+              key={mark}
+              className="absolute text-xs text-muted-foreground font-medium"
+              style={{
+                left: x - 8,
+                top: y - 8,
+                width: 16,
+                height: 16,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
             >
               {mark}
-            </text>
-          </g>
-        )
-      })}
+            </div>
+          )
+        })}
+      </div>
     </div>
   )
 }
@@ -625,7 +606,7 @@ export default function BottleneckCalculator() {
                   </CardHeader>
                   <CardContent>
                     <div className="flex justify-center">
-                      <SpeedMeter value={result.overallScore} size={280} />
+                      <PerformanceMeter value={result.overallScore} size={280} />
                     </div>
                   </CardContent>
                 </Card>
