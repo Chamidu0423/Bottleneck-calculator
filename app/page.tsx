@@ -1,8 +1,6 @@
 "use client"
 
-import type React from "react"
-
-import { useState } from "react"
+import React, { useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Badge } from "@/components/ui/badge"
@@ -153,12 +151,34 @@ interface BottleneckResult {
   recommendations: string[]
 }
 
+const AnimatedCounter = ({ value, duration = 1000 }: { value: number; duration?: number }) => {
+  const [display, setDisplay] = useState<number>(0)
+
+  React.useEffect(() => {
+    let raf = 0
+    const start = performance.now()
+    const from = value > 0 ? 1 : 0
+
+    const tick = (now: number) => {
+      const elapsed = now - start
+      const progress = Math.min(elapsed / duration, 1)
+      const current = Math.round(from + (value - from) * progress)
+      setDisplay(current)
+      if (progress < 1) raf = requestAnimationFrame(tick)
+    }
+
+    raf = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf)
+  }, [value, duration])
+
+  return <div className="text-4xl font-thin font-[family-name:var(--font-montserrat)] text-primary">{display}%</div>
+}
+
 const SpeedMeter = ({ value, size = 200 }: { value: number; size?: number }) => {
   const radius = size / 2 - 20
   const startAngle = -Math.PI * 0.8 // Start at 80% of PI for more curve
   const endAngle = Math.PI * 0.8 // End at 80% of PI for more curve
   const totalAngle = endAngle - startAngle
-  const valueAngle = startAngle + (value / 100) * totalAngle
 
   const getPathData = (angle: number) => {
     const x = size / 2 + radius * Math.cos(angle)
@@ -168,7 +188,24 @@ const SpeedMeter = ({ value, size = 200 }: { value: number; size?: number }) => 
 
   const startPoint = getPathData(startAngle)
   const endPoint = getPathData(endAngle)
-  const valuePoint = getPathData(valueAngle)
+
+  const progressPathRef = React.useRef<SVGPathElement | null>(null)
+
+  React.useEffect(() => {
+    const path = progressPathRef.current
+    if (!path) return
+    // prepare stroke dash animation
+    const len = path.getTotalLength()
+    path.style.strokeDasharray = `${len}`
+    const offset = len * (1 - Math.max(0, Math.min(100, value)) / 100)
+    const prefersReduce = typeof window !== "undefined" && window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    path.style.transition = prefersReduce ? "none" : "stroke-dashoffset 1s ease-out"
+    // apply offset (this will animate if transition is set)
+    // setTimeout to ensure the initial dasharray is set before offset for some browsers
+    setTimeout(() => {
+      path.style.strokeDashoffset = String(offset)
+    }, 0)
+  }, [value])
 
   return (
     <div className="relative flex items-center justify-center" style={{ width: size, height: size / 2 + 60 }}>
@@ -193,19 +230,20 @@ const SpeedMeter = ({ value, size = 200 }: { value: number; size?: number }) => 
           strokeWidth="12"
           strokeLinecap="round"
         />
-        {/* Progress arc with more curve */}
+        {/* Progress arc: render full arc and animate strokeDashoffset */}
         <path
-          d={`M ${startPoint.x} ${startPoint.y} A ${radius} ${radius} 0 ${value > 50 ? 1 : 0} 1 ${valuePoint.x} ${valuePoint.y}`}
+          ref={progressPathRef}
+          d={`M ${startPoint.x} ${startPoint.y} A ${radius} ${radius} 0 1 1 ${endPoint.x} ${endPoint.y}`}
           fill="none"
           stroke="url(#speedMeterGradient)"
           strokeWidth="12"
           strokeLinecap="round"
-          className="transition-all duration-1000 ease-out"
+          style={{ strokeDashoffset: "100%" }}
         />
       </svg>
       {/* Center value */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-center">
-        <div className="text-4xl font-thin font-[family-name:var(--font-montserrat)] text-primary">{value}%</div>
+        <AnimatedCounter value={value} duration={900} />
         <div className="text-sm text-muted-foreground mt-1">
           {value >= 85 ? "Excellent" : value >= 70 ? "Good" : value >= 50 ? "Fair" : "Poor"}
         </div>
@@ -286,12 +324,66 @@ const AnimatedButton = ({
   )
 }
 
+class ErrorBoundary extends React.Component<{ children: React.ReactNode }, { error: Error | null }> {
+  constructor(props: { children: React.ReactNode }) {
+    super(props)
+    this.state = { error: null }
+  }
+
+  static getDerivedStateFromError(error: Error) {
+    return { error }
+  }
+
+  componentDidCatch(error: Error, info: unknown) {
+    // Log full error to console so developer can see stack in browser console
+    // This helps diagnose blank pages caused by client runtime errors
+    // eslint-disable-next-line no-console
+    console.error("ErrorBoundary caught an error:", error, info)
+  }
+
+  render() {
+    if (this.state.error) {
+      return (
+        <div className="min-h-screen flex items-center justify-center bg-background">
+          <div className="max-w-xl w-full p-6 bg-red-50 border border-red-200 rounded-lg">
+            <h2 className="text-xl font-semibold text-red-700 mb-2">Client rendering error</h2>
+            <p className="text-sm text-red-600 mb-4">An error occurred while rendering the page.</p>
+            <pre className="text-xs text-red-800 whitespace-pre-wrap">{String(this.state.error)}</pre>
+            <p className="text-xs text-muted-foreground mt-4">Open the browser console for full stack trace.</p>
+          </div>
+        </div>
+      )
+    }
+
+    return this.props.children
+  }
+}
+
 export default function BottleneckCalculator() {
   const [selectedComponents, setSelectedComponents] = useState<SelectedComponents>({
     cpu: "",
     gpu: "",
     ram: "",
   })
+  const [clientError, setClientError] = useState<string | null>(null)
+
+  // Register global client-side error handlers to surface runtime errors in-page
+  React.useEffect(() => {
+    const onError = (event: ErrorEvent) => {
+      setClientError(event.error ? String(event.error) : event.message)
+    }
+    const onRejection = (event: PromiseRejectionEvent) => {
+      setClientError(event.reason ? String(event.reason) : "Unhandled promise rejection")
+    }
+
+    window.addEventListener("error", onError)
+    window.addEventListener("unhandledrejection", onRejection)
+
+    return () => {
+      window.removeEventListener("error", onError)
+      window.removeEventListener("unhandledrejection", onRejection)
+    }
+  }, [])
   const [result, setResult] = useState<BottleneckResult | null>(null)
   const [isCalculating, setIsCalculating] = useState(false)
 
@@ -350,6 +442,12 @@ export default function BottleneckCalculator() {
 
   return (
     <div className="min-h-screen bg-background">
+      {clientError && (
+        <div className="fixed top-4 right-4 z-50 max-w-sm p-4 bg-red-600 text-white rounded shadow">
+          <strong className="block font-semibold">Client error</strong>
+          <div className="text-sm mt-1 break-words">{clientError}</div>
+        </div>
+      )}
       {/* Header */}
       <header className="border-b bg-card">
         <div className="container mx-auto px-4 py-6">
