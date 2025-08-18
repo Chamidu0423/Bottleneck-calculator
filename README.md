@@ -96,6 +96,6 @@ npm run dev
 
 
 
-- [@Chamidu0423](https://github.com/Chamidu0423)
+- [@Chamidu0423](https://github.com/Chamidu0423) 🙂‍↕️
 
-- [@abdullahalsazib](https://github.com/abdullahalsazib)
+- [@abdullahalsazib](https://github.com/abdullahalsazib) 😎
