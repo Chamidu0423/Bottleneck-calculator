@@ -86,11 +86,17 @@ const hardwareData = {
     { id: "rx-6800-xt", name: "AMD RX 6800 XT", score: 88, vram: 16, price: 650 },
     { id: "rx-6900-xt", name: "AMD RX 6900 XT", score: 92, vram: 16, price: 1000 },
     { id: "rx-6950-xt", name: "AMD RX 6950 XT", score: 94, vram: 16, price: 1100 },
-
     
     { id: "arc-a380", name: "Intel Arc A380", score: 50, vram: 6, price: 140 },
     { id: "arc-a750", name: "Intel Arc A750", score: 65, vram: 8, price: 250 },
     { id: "arc-a770", name: "Intel Arc A770", score: 70, vram: 16, price: 330 },
+    { id: "arc-a780", name: "Intel Arc A780", score: 75, vram: 16, price: 400 },
+    { id: "gtx-1650", name: "NVIDIA GeForce GTX 1650", score: 48, vram: 4, price: 150 },
+    { id: "gtx-1660-super", name: "NVIDIA GeForce GTX 1660 Super", score: 58, vram: 6, price: 230 },
+    { id: "rtx-2060", name: "NVIDIA GeForce RTX 2060", score: 68, vram: 6, price: 300 },
+    { id: "rtx-2070-super", name: "NVIDIA GeForce RTX 2070 Super", score: 78, vram: 8, price: 450 },
+    { id: "rtx-2080-super", name: "NVIDIA GeForce RTX 2080 Super", score: 85, vram: 8, price: 700 },
+    { id: "rx-5700-xt", name: "AMD Radeon RX 5700 XT", score: 80, vram: 8, price: 400 }
   ],
   ram: [
     { id: "ddr4-8gb-2400", name: "8GB DDR4-2400", score: 50, capacity: 8, speed: 2400, price: 30 },
