@@ -240,7 +240,7 @@ const PerformanceMeter = ({ value, size = 280 }: { value: number; size?: number 
           <defs>
             <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="0%">
               <stop offset="0%" stopColor="#04021a" />
-              <stop offset="25%" stopColor="#f97316" />
+              <stop offset="25%" stopColor="#2f0c54" />
               <stop offset="50%" stopColor="#eab308" />
               <stop offset="75%" stopColor="#22c55e" />
               <stop offset="100%" stopColor="#16a34a" />
