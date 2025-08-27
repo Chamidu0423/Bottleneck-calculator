@@ -242,7 +242,7 @@ const PerformanceMeter = ({ value, size = 280 }: { value: number; size?: number 
               <stop offset="0%" stopColor="#04021a" />
               <stop offset="25%" stopColor="#2f0c54" />
               <stop offset="50%" stopColor="#64166d" />
-              <stop offset="75%" stopColor="#22c55e" />
+              <stop offset="75%" stopColor="#de5339" />
               <stop offset="100%" stopColor="#16a34a" />
             </linearGradient>
           </defs>
