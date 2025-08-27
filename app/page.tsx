@@ -490,6 +490,75 @@ class ErrorBoundary extends React.Component<{ children: React.ReactNode }, { err
   }
 }
 
+const AnalysisItem = ({ label, value, type }: { label: string; value: number; type: string }) => {
+  const [open, setOpen] = React.useState(false)
+
+  const getColor = (t: string) => {
+    switch (t) {
+      case "cpu":
+        return "border-l-violet-500/80 bg-violet-50"
+      case "gpu":
+        return "border-l-amber-500/80 bg-amber-50"
+      case "ram":
+        return "border-l-sky-500/80 bg-sky-50"
+      default:
+        return "border-l-muted-500/80 bg-muted/40"
+    }
+  }
+
+  const getSeverityColor = (v: number) => {
+    if (v < 5) return "text-green-600"
+    if (v < 15) return "text-yellow-600"
+    return "text-red-600"
+  }
+
+  const getSeverityIcon = (v: number) => {
+    if (v < 5) return <CheckCircle className="h-4 w-4 text-green-600" />
+    if (v < 15) return <AlertTriangle className="h-4 w-4 text-yellow-600" />
+    return <XCircle className="h-4 w-4 text-red-600" />
+  }
+
+  const tips: Record<string, string> = {
+    cpu: "If CPU shows as the bottleneck: prioritize higher single-core performance or more cores for multi-threaded tasks.",
+    gpu: "If GPU shows as the bottleneck: consider a faster GPU, higher VRAM, or reduce graphics settings for better balance.",
+    ram: "If RAM shows as the bottleneck: increase capacity or switch to faster memory to avoid swapping.",
+    default: "No specific action required."
+  }
+
+  return (
+    <div className={`w-full border-l-4 p-3 rounded-md ${getColor(type)} shadow-sm`}>
+      <div className="flex items-start gap-3">
+        <div className="pt-1">{getSeverityIcon(value)}</div>
+        <div className="flex-1">
+          <div className="flex items-start justify-between gap-3">
+            <div className="text-sm text-foreground flex items-center gap-2">
+              <span className="font-medium">{label}</span>
+              <span className="text-xs text-muted-foreground">(severity)</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className={`font-semibold ${getSeverityColor(value)}`}>{value.toFixed(1)}%</span>
+              <button
+                onClick={() => setOpen((s) => !s)}
+                className="text-xs px-2 py-1 rounded-md hover:bg-muted/60 transition-colors text-muted-foreground flex items-center gap-1"
+                aria-expanded={open}
+              >
+                <Info className="h-3 w-3" />
+                <span>{open ? "Hide" : "Details"}</span>
+              </button>
+            </div>
+          </div>
+
+          {open && (
+            <div className="mt-2 text-xs text-muted-foreground bg-white/5 p-2 rounded">
+              {tips[type as keyof typeof tips] ?? tips.default}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export default function BottleneckCalculator() {
   const [selectedComponents, setSelectedComponents] = useState<SelectedComponents>({
     cpu: "",
@@ -717,35 +786,9 @@ export default function BottleneckCalculator() {
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="space-y-3">
-                      <div className="flex items-center justify-between p-3 rounded-lg bg-muted/50">
-                        <div className="flex items-center gap-2">
-                          {getBottleneckIcon(result.cpuBottleneck)}
-                          <span className="font-medium">CPU Bottleneck</span>
-                        </div>
-                        <span className={`font-semibold ${getBottleneckColor(result.cpuBottleneck)}`}>
-                          {result.cpuBottleneck.toFixed(1)}%
-                        </span>
-                      </div>
-
-                      <div className="flex items-center justify-between p-3 rounded-lg bg-muted/50">
-                        <div className="flex items-center gap-2">
-                          {getBottleneckIcon(result.gpuBottleneck)}
-                          <span className="font-medium">GPU Bottleneck</span>
-                        </div>
-                        <span className={`font-semibold ${getBottleneckColor(result.gpuBottleneck)}`}>
-                          {result.gpuBottleneck.toFixed(1)}%
-                        </span>
-                      </div>
-
-                      <div className="flex items-center justify-between p-3 rounded-lg bg-muted/50">
-                        <div className="flex items-center gap-2">
-                          {getBottleneckIcon(result.ramBottleneck)}
-                          <span className="font-medium">RAM Bottleneck</span>
-                        </div>
-                        <span className={`font-semibold ${getBottleneckColor(result.ramBottleneck)}`}>
-                          {result.ramBottleneck.toFixed(1)}%
-                        </span>
-                      </div>
+                      <AnalysisItem label="CPU Bottleneck" value={result.cpuBottleneck} type="cpu" />
+                      <AnalysisItem label="GPU Bottleneck" value={result.gpuBottleneck} type="gpu" />
+                      <AnalysisItem label="RAM Bottleneck" value={result.ramBottleneck} type="ram" />
                     </div>
                   </CardContent>
                 </Card>
