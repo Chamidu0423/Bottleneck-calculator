@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Badge } from "@/components/ui/badge"
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Cpu, Monitor, Computer, AlertTriangle, CheckCircle, XCircle } from "lucide-react"
+import { Cpu, Monitor, Computer, AlertTriangle, CheckCircle, XCircle, Copy, Info } from "lucide-react"
 
 const hardwareData = {
   cpus: [
@@ -359,6 +359,105 @@ const AnimatedButton = ({
   )
 }
 
+const RecommendationItem = ({ rec }: { rec: string }) => {
+  const [copied, setCopied] = React.useState(false)
+  const [open, setOpen] = React.useState(false)
+
+  const type = React.useMemo(() => {
+    const lower = rec.toLowerCase()
+    if (lower.includes("cpu")) return "cpu"
+    if (lower.includes("gpu")) return "gpu"
+    if (lower.includes("ram")) return "ram"
+    if (lower.includes("excellent")) return "excellent"
+    return "info"
+  }, [rec])
+
+  const getColor = (t: string) => {
+    switch (t) {
+      case "cpu":
+        return "border-l-violet-500/80 bg-violet-50"
+      case "gpu":
+        return "border-l-amber-500/80 bg-amber-50"
+      case "ram":
+        return "border-l-sky-500/80 bg-sky-50"
+      case "excellent":
+        return "border-l-green-500/80 bg-green-50"
+      default:
+        return "border-l-muted-500/80 bg-muted/40"
+    }
+  }
+
+  const getIcon = (t: string) => {
+    switch (t) {
+      case "cpu":
+        return <Cpu className="h-5 w-5 text-violet-600" />
+      case "gpu":
+        return <Monitor className="h-5 w-5 text-amber-600" />
+      case "ram":
+        return <Computer className="h-5 w-5 text-sky-600" />
+      case "excellent":
+        return <CheckCircle className="h-5 w-5 text-green-600" />
+      default:
+        return <Info className="h-5 w-5 text-muted-foreground" />
+    }
+  }
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(rec)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 1500)
+    } catch (e) {
+      setCopied(false)
+    }
+  }
+
+  const details = {
+    cpu: "Tip: If CPU is the bottleneck consider upgrading to a higher single-thread performance model or a CPU with more cores for multi-threaded workloads.",
+    gpu: "Tip: If GPU is the bottleneck consider a faster GPU, higher VRAM, or lowering graphics settings for better balance.",
+    ram: "Tip: If RAM is the issue consider faster memory speed or increasing capacity to avoid swapping.",
+    excellent: "This configuration appears well-balanced — no immediate action required.",
+    info: "General recommendation."
+  }
+
+  return (
+    <div className={`w-full border-l-4 p-3 rounded-md ${getColor(type)} shadow-sm`}>
+      <div className="flex items-start gap-3">
+        <div className="pt-1">{getIcon(type)}</div>
+        <div className="flex-1">
+          <div className="flex items-start justify-between gap-3">
+            <div className="text-sm text-foreground">{rec}</div>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setOpen((s) => !s)}
+                className="text-xs px-2 py-1 rounded-md hover:bg-muted/60 transition-colors text-muted-foreground flex items-center gap-1"
+                aria-expanded={open}
+              >
+                <Info className="h-3 w-3" />
+                <span>{open ? "Hide" : "Details"}</span>
+              </button>
+              <button
+                onClick={handleCopy}
+                className="text-xs px-2 py-1 rounded-md hover:bg-muted/60 transition-colors text-muted-foreground flex items-center gap-1"
+                aria-label="Copy recommendation"
+              >
+                <Copy className="h-3 w-3" />
+                <span>{copied ? "Copied" : "Copy"}</span>
+              </button>
+            </div>
+          </div>
+
+          {open && (
+            <div className="mt-2 text-xs text-muted-foreground bg-white/5 p-2 rounded">
+              {details[type as keyof typeof details]}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 class ErrorBoundary extends React.Component<{ children: React.ReactNode }, { error: Error | null }> {
   constructor(props: { children: React.ReactNode }) {
     super(props)
@@ -656,13 +755,14 @@ export default function BottleneckCalculator() {
                   <Card>
                     <CardHeader>
                       <CardTitle className="font-[family-name:var(--font-montserrat)]">Recommendations</CardTitle>
+                      <CardDescription className="text-sm">Actionable guidance to improve balance and performance</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-3">
-                      {result.recommendations.map((rec, index) => (
-                        <Alert key={index}>
-                          <AlertDescription>{rec}</AlertDescription>
-                        </Alert>
-                      ))}
+                      <div className="grid gap-3">
+                        {result.recommendations.map((rec, index) => (
+                          <RecommendationItem rec={rec} key={index} />
+                        ))}
+                      </div>
                     </CardContent>
                   </Card>
                 )}
